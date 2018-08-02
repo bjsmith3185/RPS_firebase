@@ -1,0 +1,38 @@
+
+
+set up the database prior to game
+
+rps
+    player 1
+        choice : null,
+        win : 0,
+        loss : 0,
+        tie : 0,
+        
+
+
+
+enter user1 name
+
+enter user2 name
+
+when 2 users are present
+    - start game
+
+1st user is highlighted (prompted to select)
+    -user1 selects rps
+        - push the slection to firebase
+        - display in dom the selection
+
+2nd user is highlighted 
+    - user2 selects rps 
+        -push the selection to firebase
+        - display in dom the selection 
+
+pull both selections back to js.
+    -function to determine who won
+        - display the results
+            - overall dom saying "user 1 wins"
+            - individual screen updating the score, win, loss tie
+            - clear the user selections in hte database
+            - function to let user1 start

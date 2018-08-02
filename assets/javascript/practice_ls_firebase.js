@@ -13,7 +13,9 @@ var config = {
 
     var database = firebase.database();
 
-    localStorage.getItem("name")
+    var localName = localStorage.getItem("name");
+
+    $(".name").text(localName);
 
 
 

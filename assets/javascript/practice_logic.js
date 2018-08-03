@@ -9,12 +9,12 @@ var config = {
 };
 
 firebase.initializeApp(config);
-
+var database = firebase.database();
 
 
 $(document).ready(function () {
 
-    var database = firebase.database();
+    
 
     var userName;
     var userName2;
@@ -24,8 +24,8 @@ $(document).ready(function () {
     var user2Select = false;
 
 
-    var ref = firebase.database().ref(userName);
-    ref.onDisconnect().set("I disconnected!");
+    // var ref = firebase.database().ref(userName);
+    // ref.onDisconnect().set("I disconnected!");
 
     addUser1();
 
@@ -47,19 +47,20 @@ $(document).ready(function () {
                 "losses": 0,
                 "ties": 0,
                 "logged_on": true,
+                "choice": "-",
             }); // end of push to database
 
-            database.ref().once("value", function (snapshot) {
+            // database.ref().once("value", function (snapshot) {
 
-                $(".name").text("Name: " + snapshot.val()[userName].name);
-                $(".wins").text("Wins: " + snapshot.val()[userName].wins);
-                $(".losses").text("Losses: " + snapshot.val()[userName].losses);
-                $(".ties").text("Ties: " + snapshot.val()[userName].ties);
+            //     $(".name").text("Name: " + snapshot.val()[userName].name);
+            //     $(".wins").text("Wins: " + snapshot.val()[userName].wins);
+            //     $(".losses").text("Losses: " + snapshot.val()[userName].losses);
+            //     $(".ties").text("Ties: " + snapshot.val()[userName].ties);
 
-                user1Active = snapshot.val()[userName].logged_on;
-                console.log("status of user1: " + user1Active);
+            //     user1Active = snapshot.val()[userName].logged_on;
+            //     console.log("status of user1: " + user1Active);
 
-            });
+            // });
             addUser2();
         });
 
@@ -82,19 +83,20 @@ $(document).ready(function () {
                 "losses": 0,
                 "ties": 0,
                 "logged_on": true,
+                "choice": "-",
             }); // end of push to database
 
-            database.ref().once("value", function (snapshot) {
+            // database.ref().once("value", function (snapshot) {
 
-                $(".name2").text("Name: " + snapshot.val()[userName2].name);
-                $(".wins2").text("Wins: " + snapshot.val()[userName2].wins);
-                $(".losses2").text("Losses: " + snapshot.val()[userName2].losses);
-                $(".ties2").text("Ties: " + snapshot.val()[userName2].ties);
+            //     $(".name2").text("Name: " + snapshot.val()[userName2].name);
+            //     $(".wins2").text("Wins: " + snapshot.val()[userName2].wins);
+            //     $(".losses2").text("Losses: " + snapshot.val()[userName2].losses);
+            //     $(".ties2").text("Ties: " + snapshot.val()[userName2].ties);
 
-                user2Active = snapshot.val()[userName].logged_on;
-                console.log("status of user2: " + user2Active);
-                gameReady();
-            });
+            //     user2Active = snapshot.val()[userName].logged_on;
+            //     console.log("status of user2: " + user2Active);
+            //     gameReady();
+            // });
             // setTimeout(gameReady, 4000);
 
         });
@@ -124,16 +126,16 @@ $(document).ready(function () {
                     "choice": userChoice,
                 });
 
-                database.ref().on("value", function (snapshot) {
-                    // console.log(userName)
-                    // console.log(snapshot.val()[userName]);
-                    $(".name").text(snapshot.val()[userName].name);
-                    $(".choice").text(snapshot.val()[userName].choice)
-                    $(".wins").text(snapshot.val()[userName].wins);
-                    $(".losses").text(snapshot.val()[userName].losses);
-                    $(".ties").text(snapshot.val()[userName].ties);
+                // database.ref().on("value", function (snapshot) {
+                //     // console.log(userName)
+                //     // console.log(snapshot.val()[userName]);
+                //     $(".name").text(snapshot.val()[userName].name);
+                //     $(".choice").text(snapshot.val()[userName].choice)
+                //     $(".wins").text(snapshot.val()[userName].wins);
+                //     $(".losses").text(snapshot.val()[userName].losses);
+                //     $(".ties").text(snapshot.val()[userName].ties);
 
-                });
+                // });
                 user2SelectRPS();
             });
 
@@ -155,15 +157,15 @@ $(document).ready(function () {
                     "choice": userChoice,
                 });
 
-                database.ref().on("value", function (snapshot) {
-                    // console.log(userName)
-                    // console.log(snapshot.val()[userName]);
-                    $(".name2").text(snapshot.val()[userName2].name);
-                    $(".choice2").text(snapshot.val()[userName2].choice)
-                    $(".wins2").text(snapshot.val()[userName2].wins);
-                    $(".losses2").text(snapshot.val()[userName2].losses);
-                    $(".ties2").text(snapshot.val()[userName2].ties);
-                });
+                // database.ref().on("value", function (snapshot) {
+                //     // console.log(userName)
+                //     // console.log(snapshot.val()[userName]);
+                //     $(".name2").text(snapshot.val()[userName2].name);
+                //     $(".choice2").text(snapshot.val()[userName2].choice)
+                //     $(".wins2").text(snapshot.val()[userName2].wins);
+                //     $(".losses2").text(snapshot.val()[userName2].losses);
+                //     $(".ties2").text(snapshot.val()[userName2].ties);
+                // });
                 compareAnswers();
             });
 
@@ -264,10 +266,50 @@ $(document).ready(function () {
     function nextRound() {
         gameReady();
     };
+//====================== listener
 
+    database.ref().on("value", function(snapshot) {
 
+        // Log everything that's coming out of snapshot
+        console.log("this is the listener");
+        console.log(snapshot.val());
+        $(".name").text("Name: " + snapshot.val()[userName].name);
+        $(".choice").text("Selected: " + snapshot.val()[userName].choice)
+        $(".wins").text("Wins: " + snapshot.val()[userName].wins);
+        $(".losses").text("Losses: " + snapshot.val()[userName].losses);
+        $(".ties").text("Ties: " + snapshot.val()[userName].ties);
 
+        $(".name2").text("Name: " + snapshot.val()[userName2].name);
+        $(".choice2").text("Selected: " + snapshot.val()[userName2].choice)
+        $(".wins2").text("Wins: " + snapshot.val()[userName2].wins);
+        $(".losses2").text("Losses: " + snapshot.val()[userName2].losses);
+        $(".ties2").text("Ties: " + snapshot.val()[userName2].ties);
+  
+       
+  
+        // Handle the errors
+      }, function(errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+      });
 
 
 
 }); // end of document ready 
+
+
+// var ref = firebase.database().ref("users/ada");
+// ref.update({
+//    onlineState: true,
+//    status: "I'm online."
+// });
+// ref.onDisconnect().update({
+//   onlineState: false,
+//   status: "I'm offline."
+// });
+
+
+// var ref = firebase.database().ref(userName);
+//     ref.onDisconnect().set("I disconnected!");
+
+
+

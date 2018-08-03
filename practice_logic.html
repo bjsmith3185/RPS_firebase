@@ -56,7 +56,46 @@
 
 
 
+<script>
 
+    var config = {
+            apiKey: "AIzaSyCMq10KVdAHPKNC4jpdOMcmfPcRXbpoZMs",
+            authDomain: "rps-firebase-40930.firebaseapp.com",
+            databaseURL: "https://rps-firebase-40930.firebaseio.com",
+            projectId: "rps-firebase-40930",
+            storageBucket: "rps-firebase-40930.appspot.com",
+            messagingSenderId: "445863158721"
+        };
+
+        firebase.initializeApp(config);
+        var database = firebase.database();
+
+        database.ref().on("value", function (snapshot) {
+
+            // Log everything that's coming out of snapshot
+            console.log("this is the listener");
+            console.log(snapshot.val());
+
+
+            $(".name").text("Name: " + snapshot.val()[userName].name);
+        $(".choice").text("Selected: " + snapshot.val()[userName].choice)
+        $(".wins").text("Wins: " + snapshot.val()[userName].wins);
+        $(".losses").text("Losses: " + snapshot.val()[userName].losses);
+        $(".ties").text("Ties: " + snapshot.val()[userName].ties);
+
+        $(".name2").text("Name: " + snapshot.val()[userName2].name);
+        $(".choice2").text("Selected: " + snapshot.val()[userName2].choice)
+        $(".wins2").text("Wins: " + snapshot.val()[userName2].wins);
+        $(".losses2").text("Losses: " + snapshot.val()[userName2].losses);
+        $(".ties2").text("Ties: " + snapshot.val()[userName2].ties);
+
+        }, function (errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+        });
+    
+
+
+</script>
 
 
 
@@ -93,6 +132,6 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script type='text/javascript' src='assets/javascript/practice_players.js'></script>
+    <script type='text/javascript' src='assets/javascript/practice_logic.js'></script>
 </body>
 </html>

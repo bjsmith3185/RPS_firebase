@@ -13,6 +13,10 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 
+
+firebase.database.enableLogging(true, true);
+
+
 var player1Name;
 var playerName2;
 var player1Active = false;
@@ -23,7 +27,7 @@ var player2Select = false;
 
 //----------creates two player folders on load ----
 database.ref("player1").update({
-    "name": "Sign-in",
+    "name": "empty",
     "wins": 0,
     "losses": 0,
     "ties": 0,
@@ -32,7 +36,7 @@ database.ref("player1").update({
 }); // end of push to database
 
 database.ref("player2").update({
-    "name": "Sign-in",
+    "name": "empty",
     "wins": 0,
     "losses": 0,
     "ties": 0,
@@ -41,6 +45,20 @@ database.ref("player2").update({
 }); // end of push to database
 
 //-----------listener to display info to dom --------
+
+    //---- possible statement to determine if the user is logged on
+
+            // var ref = firebase.database().ref("player1");
+            // ref.onDisconnect().remove(onComplete);
+
+            firebase.database().ref("player1").onDisconnect().update({
+                "logged_on": false,
+            });
+            firebase.database().ref("player2").onDisconnect().update({
+                "logged_on": false,
+            })
+    //--------------------------------------------------------------
+
 
     database.ref().on("value", function(snapshot) {
 
@@ -66,8 +84,9 @@ database.ref("player2").update({
         console.log("Errors handled: " + errorObject.code);
         });
 
-        // var ref = firebase.database().ref("player1");
-    // ref.onDisconnect().set("I disconnected!");
+       
+
+    // begin function to start game
 
     addUser1();
 
@@ -91,7 +110,8 @@ database.ref("player2").update({
                 "logged_on": true,
                 "choice": "-",
             }); // end of push to database
-         
+            
+         console.log("player1 is ready");
             addUser2();
         });
     };
@@ -114,6 +134,7 @@ database.ref("player2").update({
                 "logged_on": true,
                 "choice": "-",
             }); // end of push to database
+            console.log("player2 is ready");
              gameReady();
         });
     };
@@ -122,7 +143,7 @@ database.ref("player2").update({
 
 
     function gameReady() {
-        console.log("this is the active state: " + player1Active + "  " + player2Active)
+        // console.log("this is the active state: " + player1Active + "  " + player2Active);
         if (player1Active && player2Active) {
             player1Select = true;
             player2Select = false;
@@ -138,6 +159,7 @@ database.ref("player2").update({
     function player1SelectRPS() {
 
         if (player1Select) {
+            console.log("player1's turn to select");
             player1select = false;
             $(document.body).on("click", ".select", function () {
                 player2Select = true;
@@ -162,6 +184,7 @@ database.ref("player2").update({
         console.log("player2: " + player2Select);
 
         if (player2Select) {
+            console.log("player2's turn to select");
             player2select = false;
             $(document.body).on("click", ".select2", function () {
                 var playerChoice = $(this).attr("value");
@@ -181,7 +204,7 @@ database.ref("player2").update({
     function compareAnswers() {
         var answer1 = $(".choice").text();
         var answer2 = $(".choice2").text();
-        console.log(answer1 + "  " + answer2);
+        // console.log(answer1 + "  " + answer2);
         var wins1 = 0;
         var losses1 = 0;
         var ties1 = 0;
@@ -190,7 +213,7 @@ database.ref("player2").update({
         var ties2 = 0;
        
         if (answer1 === "r" && answer2 === "s") {
-            console.log("r and s");
+          
             wins1++;
             database.ref("player1").update({
                 "wins": wins1,
@@ -274,7 +297,7 @@ database.ref("player2").update({
     };
 
 
-});
+});  // end of document ready
 
 
 

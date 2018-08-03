@@ -48,9 +48,9 @@ function addUser1() {
 
         database.ref(userName).update({
             "name": userName,
-            "wins": 1,
-            "losses": 2,
-            "ties": 3,
+            "wins": 0,
+            "losses": 0,
+            "ties": 0,
             "logged_on": true,
         }); // end of push to database
 
@@ -61,10 +61,10 @@ function addUser1() {
             // console.log(snapshot.val()[userName].losses);
             // console.log(snapshot.val()[userName].ties);
 
-            $(".name").text(snapshot.val()[userName].name);
-            $(".wins").text(snapshot.val()[userName].wins);
-            $(".losses").text(snapshot.val()[userName].losses);
-            $(".ties").text(snapshot.val()[userName].ties);
+            $(".name").text("Name: " + snapshot.val()[userName].name);
+            $(".wins").text("Wins: " + snapshot.val()[userName].wins);
+            $(".losses").text("Losses: " + snapshot.val()[userName].losses);
+            $(".ties").text("Ties: " + snapshot.val()[userName].ties);
 
             user1Active = snapshot.val()[userName].logged_on;
             console.log("status of user1: " + user1Active);
@@ -89,9 +89,9 @@ function addUser2() {
 
         database.ref(userName2).update({
             "name": userName2,
-            "wins": 1,
-            "losses": 2,
-            "ties": 3,
+            "wins": 0,
+            "losses": 0,
+            "ties": 0,
             "logged_on": true,
         }); // end of push to database
 
@@ -102,10 +102,10 @@ function addUser2() {
             // console.log(snapshot.val()[userName].losses);
             // console.log(snapshot.val()[userName].ties);
 
-            $(".name2").text(snapshot.val()[userName2].name);
-            $(".wins2").text(snapshot.val()[userName2].wins);
-            $(".losses2").text(snapshot.val()[userName2].losses);
-            $(".ties2").text(snapshot.val()[userName2].ties);
+            $(".name2").text("Name: " + snapshot.val()[userName2].name);
+            $(".wins2").text("Wins: " + snapshot.val()[userName2].wins);
+            $(".losses2").text("Losses: " + snapshot.val()[userName2].losses);
+            $(".ties2").text("Ties: " + snapshot.val()[userName2].ties);
 
             user2Active = snapshot.val()[userName].logged_on;
             console.log("status of user2: " + user2Active);
@@ -185,7 +185,7 @@ function addUser2() {
                     $(".ties2").text(snapshot.val()[userName2].ties);
 
                 });
-
+                compareAnswers();
             });
 
         } else {
@@ -195,6 +195,97 @@ function addUser2() {
     };
 
 
+
+    function compareAnswers() {
+      var answer1 =  $(".choice").text();
+      var answer2 =  $(".choice2").text();
+      console.log(answer1 + "  " + answer2);
+    var wins1 = 0;
+    var losses1 = 0;
+    var ties1 = 0;
+    var wins2 = 0;
+    var losses2 = 0;
+    var ties2 = 0;
+
+      if (answer1 === "r" && answer2 === "s") {
+        wins1++;
+        database.ref(userName).update({
+            "wins": wins1,
+        }); // end of push to database
+        losses2++;
+        database.ref(userName2).update({
+            "losses": losses2,
+        }); // end of push to database
+
+    }   else if (answer1 === "r" && answer2 === "p") {
+        losses1++;
+        database.ref(userName).update({
+            "losses": losses1,
+        }); // end of push to database
+        wins2++;
+        database.ref(userName2).update({
+            "wins": wins2,
+        }); // end of push to database
+
+    }   else if (answer1 === "s" && answer2 === "p") {
+        wins1++;
+        database.ref(userName).update({
+            "wins": wins1,
+        }); // end of push to database
+        losses2++;
+        database.ref(userName2).update({
+            "losses": losses2,
+        }); // end of push to database
+
+    }   else if (answer1 === "s" && answer2 === "r") {
+        losses1++;
+        database.ref(userName).update({
+            "losses": losses1,
+        }); // end of push to database
+        wins2++;
+        database.ref(userName2).update({
+            "wins": wins2,
+        }); // end of push to database
+        
+    }   else if (answer1 === "p" && answer2 === "r") {
+        wins1++;
+        database.ref(userName).update({
+            "wins": wins1,
+        }); // end of push to database
+        losses2++;
+        database.ref(userName2).update({
+            "losses": losses2,
+        }); // end of push to database
+
+    }   else if (answer1 === "p" && answer2 === "r") {
+        losses1++;
+        database.ref(userName).update({
+            "losses": losses1,
+        }); // end of push to database
+        wins2++;
+        database.ref(userName2).update({
+            "wins": wins2,
+        }); // end of push to database
+        
+
+    }   else if (answer1 === answer2) {
+        ties1++;
+        ties2++;
+        database.ref(userName).update({
+            "ties": ties1,
+        }); // end of push to database
+        ties2++;
+        database.ref(userName2).update({
+            "ties": ties2,
+        }); // end of push to database
+    } ;
+
+    nextRound();
+};
+
+function nextRound() {
+    gameReady();
+}
    
 
 

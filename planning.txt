@@ -1,4 +1,13 @@
 
+right now using index.html to open game
+    - transfer.html is the player1's window in the game 
+    - index.html is the player2's window in the game 
+
+
+
+
+
+===========================================================
 listerner to find changes and update the dom
 listener to determine game status
 

@@ -2,9 +2,10 @@ $(document).ready(function () {
 
     $(".welcome-container").show();
     $(".player2-area").hide();
-    $(".game-container").hide();
-    // $(".player-one-game").hide();
-    // $(".player-two-game").hide();
+    $(".game-container-player1").hide();
+    $(".game-container-player2").hide();
+    $(".only-one-player-left").hide();
+    
 
     var config = {
         apiKey: "AIzaSyCMq10KVdAHPKNC4jpdOMcmfPcRXbpoZMs",
@@ -17,6 +18,33 @@ $(document).ready(function () {
     
     firebase.initializeApp(config);
     var database = firebase.database();
+
+    //-------player watcher---------
+    var connectionsRef = database.ref("/connections");
+    var connectedRef = database.ref(".info/connected");
+
+    connectedRef.on("value", function (snap) {
+        if (snap.val()) {
+            var con = connectionsRef.push(true);
+            con.onDisconnect().remove();
+        };
+    });
+
+    connectionsRef.on("value", function (snap) {
+        console.log(snap.numChildren())
+
+        if (snap.numChildren() === 1) {
+            $(".players-status").text("Only one player is active.").addClass("one-player");
+        } else if (snap.numChildren() === 2) {
+            $(".players-status").text("2 players");
+        }
+        // $("#connected-viewers").text(snap.numChildren());
+    });
+
+
+
+
+
     
     
     database.ref().on("value", function(snapshot) {
@@ -24,27 +52,48 @@ $(document).ready(function () {
         if ((snapshot.child("player1").exists()) && (snapshot.child("player2").exists())) {
 
             $(".welcome-container").hide();
-            $(".game-container").show();
 
-
-            // console.log("both players exist");
+            //---info for player1.html----
+            $(".game-container-player1").show();
             $(".player1-title-info").text(snapshot.val()["player1"].name);
             $(".choice").text("Selected: " + snapshot.val()["player1"].choice)
             $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
             $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
             $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
-            player1Active = snapshot.val()["player1"].logged_on;
-            player1Select = snapshot.val()["player1"].choice;
-            player1Turn = snapshot.val()["player1"].turn;
-        
+
+            $(".player2-title-info").text(snapshot.val()["player2"].name);
+            $(".choice2").text("Selected: " + snapshot.val()["player2"].choice);
+
+
+
+
+
+
+            //----info for player2.html-----
+            $(".game-container-player2").show();
             $(".player2-title-info").text(snapshot.val()["player2"].name);
             $(".choice2").text("Selected: " + snapshot.val()["player2"].choice)
             $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
             $(".losses2").text("Losses: " + snapshot.val()["player2"].losses);
             $(".ties2").text("Ties: " + snapshot.val()["player2"].ties);
-            player2Active = snapshot.val()["player2"].logged_on;
-            player2Select = snapshot.val()["player2"].choice;
-            player2Turn = snapshot.val()["player2"].turn;
+
+            $(".player1-title-info").text(snapshot.val()["player1"].name);
+            $(".choice").text("Selected: " + snapshot.val()["player1"].choice);
+
+         //------------------------------------------------------------------
+            // $(".player1-title-info").text(snapshot.val()["player1"].name);
+            // $(".choice").text("Selected: " + snapshot.val()["player1"].choice);
+            // $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
+            // $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
+            // $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
+            
+        
+            // $(".player2-title-info").text(snapshot.val()["player2"].name);
+            // $(".choice2").text("Selected: " + snapshot.val()["player2"].choice)
+            // $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
+            // $(".losses2").text("Losses: " + snapshot.val()["player2"].losses);
+            // $(".ties2").text("Ties: " + snapshot.val()["player2"].ties);
+            
 
             if ((snapshot.val()["player1"].readyToCheck)  && (snapshot.val()["player2"].readyToCheck)) { // if both players have made a seleciton
               console.log((snapshot.val()["player1"].readyToCheck) + " and " +   (snapshot.val()["player2"].readyToCheck) );
@@ -78,6 +127,7 @@ $(document).ready(function () {
 
         } else if ((snapshot.child("player1").exists()) && (!snapshot.child("player2").exists())) {   // should = true
             // console.log("player1 exists only");
+            $(".player1-title-info").text(snapshot.val()["player1"].name);
             $(".player2-area").show();
             $(".player1-title").text("Player 1: " + snapshot.val()["player1"].name)
             $(".input-area1").hide();
@@ -87,8 +137,7 @@ $(document).ready(function () {
             $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
             $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
             $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
-            player1Active = snapshot.val()["player1"].logged_on;
-            player1Select = snapshot.val()["player1"].choice;
+           
            addUser2();
            
         } else if ((!snapshot.child("player1").exists()) && (!snapshot.child("player2").exists())) {
@@ -133,6 +182,9 @@ $(document).ready(function () {
             //  console.log("player1 is ready");
                 $(".player-one-welcome").hide();
                 $(".player-two-welcome").show();
+
+                window.location='transfer.html';
+
             });
         };
     
@@ -158,7 +210,9 @@ $(document).ready(function () {
                     "readyToCheck": false,
                 });
                 // console.log("player2 is ready");
-
+                
+                    // window.location='player2.html';
+                  
             });
         };
     

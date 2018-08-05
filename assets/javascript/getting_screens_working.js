@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     $(".welcome-container").show();
@@ -49,12 +48,29 @@ $(document).ready(function () {
 
             if ((snapshot.val()["player1"].readyToCheck)  && (snapshot.val()["player2"].readyToCheck)) { // if both players have made a seleciton
               console.log((snapshot.val()["player1"].readyToCheck) + " and " +   (snapshot.val()["player2"].readyToCheck) );
+
+              // show on both player1 and player2 screens
+              // what player1 selected
+              // what player 2 selected
+              // in center, who won
                setTimeout(compareAnswers, 1000);
 
             } else if (snapshot.val()["player1"].turn) { // if true, let player1 select rps
+                //show player1 screen
+                // show player1 selections
+                // show player 1 selected
+                // show player 2 blank
+
+
                 setTimeout(player1SelectRPS, 1000);
   
             } else if (snapshot.val()["player2"].turn) {
+
+                // show player2 screen
+                // show player2 selections
+                // show player2 selected
+                // show player 1 blank
+
                 setTimeout(player2SelectRPS, 1000);
  
             };

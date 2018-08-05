@@ -14,19 +14,23 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 
-firebase.database.enableLogging(true, true);
+// firebase.database.enableLogging(true, true);
 
 
 var player1Name;
-var playerName2;
+var player2Name;
 var player1Active = false;
 var player2Active = false;
 var player1Select = false;
 var player2Select = false;
 
+// ref to players set to a var 
+// started with an onclick 
+// if player1   snapshot ofchild exists
+
 
 //----------creates two player folders on load ----
-database.ref("player1").update({
+database.ref("player1").set({
     "name": "empty",
     "wins": 0,
     "losses": 0,
@@ -35,7 +39,7 @@ database.ref("player1").update({
     "choice": "-",
 }); // end of push to database
 
-database.ref("player2").update({
+database.ref("player2").set({
     "name": "empty",
     "wins": 0,
     "losses": 0,
@@ -51,12 +55,12 @@ database.ref("player2").update({
             // var ref = firebase.database().ref("player1");
             // ref.onDisconnect().remove(onComplete);
 
-            firebase.database().ref("player1").onDisconnect().update({
-                "logged_on": false,
-            });
-            firebase.database().ref("player2").onDisconnect().update({
-                "logged_on": false,
-            })
+            // firebase.database().ref("player1").onDisconnect().update({
+            //     "logged_on": false,
+            // });
+            // firebase.database().ref("player2").onDisconnect().update({
+            //     "logged_on": false,
+            // })
     //--------------------------------------------------------------
 
 
@@ -121,13 +125,13 @@ database.ref("player2").update({
         $("#submit-name2").on("click", function (event) {
             event.preventDefault();
 
-            playerName2 = capitalizeFirstLetter($("#user-name2").val().trim());
+            player2Name = capitalizeFirstLetter($("#user-name2").val().trim());
             function capitalizeFirstLetter(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
             };
 
             database.ref("player2").update({
-                "name": playerName2,
+                "name": player2Name,
                 "wins": 0,
                 "losses": 0,
                 "ties": 0,

@@ -1,6 +1,37 @@
 
+listerner to find changes and update the dom
+listener to determine game status
 
-set up the database prior to game
+
+
+function to display dom
+function display()
+    -
+
+
+
+ run database.ref(snapshot)
+   - if player1 doesnot exist
+    - run addplayer1()
+
+    - if player1 exists && player2 doesnot exist
+        - run addplayer2()
+
+    - if player1 and player2 both exists
+        -run gameReady()
+
+    gameReady()
+        - use the status inisde each player object to determine users turn
+
+
+
+
+
+
+
+-----------------------------------------------
+
+set up the database prior to game (this doesnt work)
 
 rps
     player 1
@@ -8,7 +39,7 @@ rps
         win : 0,
         loss : 0,
         tie : 0,
-        
+
 
 
 

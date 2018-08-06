@@ -16,7 +16,7 @@
 
         <div class="welcome-container text-center">
                 <div class="welcome-title text-center">
-                    Welcome to Rock Paper Sissors
+                    R.P.S.
                     <span class="welcome-title-sub">Powered by Firebase.</span>
                 </div>
                 <div class="name-instructions">
@@ -24,48 +24,62 @@
                 </div>
             
                 <div class="row">
-                    <div class="col-xs-6 text-center">
+                    <div class="col-xs-12 text-center">
                         <div class="player1-area">
                             <div class="player1-title text-center">
-                                Player 1
+                                    <!-- Enter Player 1's Name. -->
                             </div>
             
             
                             <div class="input-area1 text-center">
-                                <input type="text" id="user-name1">
+                                <input type="text" id="user-name1" placeholder="1st Player's Name">
                                 <button id="submit-name1">submit name</button>
                             </div>
             
                         </div>
                     </div>
+                </div>
             
-                    <div class="col-xs-6 tex-center">
+                <div class="row">
+                    <div class="col-xs-12 tex-center">
                         <div class="player2-area">
                             <div class="player2-title text-center">
-                                Player 2
+                                <!-- Enter your name below to play. -->
                             </div>
             
             
                             <div class="input-area2 text-center">
-                                <input type="text" id="user-name2">
+                                <input type="text" id="user-name2" placeholder="2nd Player's Name">
                                 <button id="submit-name2">submit name</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             
             </div>
 
 <!-- game screen -->
 
 <div class="game-container-player2 ">
-        <div class="row">
-            <div class="col-xs-7 text-center">
-                <div class="players-status text-center"></div>
-                <div class="game-title player-two-game">
-                    <span class="player2-title-info">name2 goes here</span>
+    <div class="welcome-title text-center">
+        Rock Paper Sissors
+        <span class="welcome-title-sub">Powered by Firebase.</span>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <div class="players-status text-center"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10 text-center">
+            <div class="game-area text-center">
+                <div class="game-title ">
+                    <span class="player-title-info player2-name-top">name2 goes here</span>
                 </div>
-    
+
                 <div class="row">
                     <div class="col-xs-12 text-center">
                         <div class="game-selection-area text-center">Click on the word below to play:
@@ -73,53 +87,68 @@
                             <div class="select2" id="paper" value="p">Paper</div>
                             <div class="select2" id="rock" value="r">Rock</div>
                         </div>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <div class="player-two-selection text-center">
-                            <div class="choice2"></div>
+                               
+                        <div class="player-selection text-center">
+                            <div class="choice player2-choice"></div>
                         </div>
                     </div>
-    
-                    <div class="player-two-stats text-center">
-                        <div class="wins2"></div>
-                        <div class="losses2"></div>
-                        <div class="ties2"></div>
+                </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+
+
+
+
+
+                            
+                    <div class="player-stats text-center">
+                        <div class="p-wins wins2"></div>
+                        <div class="p-losses losses2"></div>
+                        <div class="p-ties ties2"></div>
                     </div>
-    
                 </div>
             </div>
-    
-            
-            <!-- opponent side  -->
-    
-            <div class="col-xs-5 text-center">
-    
-                <div class="game-title">
-                    <span class="player1-title-info">name1 goes here</span>
-                </div>
-    
-    
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <div class="player-one-selection text-center">
-                           what did they select?
-                        </div>
-                    </div>
-    
-                    <div class="player-one-stats text-center">
-                        <div class="wins"></div>
-                        <div class="losses"></div>
-                        <div class="ties"></div>
-                    </div>
-                </div>
-    
-            </div>
-    
         </div>
     </div>
+</div>
+
+    <!-- opponent side  -->
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10 text-center">
+            <div class="opponent-area text-center">
+                <div class="opponent-title">
+                    <span class="opponent-title-info opponent1-name">name1 goes here</span>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <div class="opponent-selection-area text-center">
+                          
+                            <div class="opponent-selection choice-player1"> what did they select?</div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4"></div>
+
+                    <div class="col-xs-4 text-center">
+
+                        <div class="opponent-stats text-center">
+                            <div class="wins"></div>
+                            <div class="losses"></div>
+                            <div class="ties"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+    
 
 
 

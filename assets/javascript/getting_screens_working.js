@@ -36,7 +36,7 @@ $(document).ready(function () {
         if (snap.numChildren() === 1) {
             $(".players-status").text("Only one player is active.").addClass("one-player");
         } else if (snap.numChildren() === 2) {
-            $(".players-status").text("2 players");
+            $(".players-status").text("Status: Both players are logged on.");
         }
         // $("#connected-viewers").text(snap.numChildren());
     });
@@ -53,32 +53,36 @@ $(document).ready(function () {
 
             $(".welcome-container").hide();
 
-            //---info for player1.html----
+            //---info for transfer.html----
             $(".game-container-player1").show();
-            $(".player1-title-info").text(snapshot.val()["player1"].name);
-            $(".choice").text("Selected: " + snapshot.val()["player1"].choice)
+            $(".player1-name-top").text(snapshot.val()["player1"].name);
+            $(".player1-choice").text("Selected: " + snapshot.val()["player1"].choice)
             $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
             $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
             $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
 
-            $(".player2-title-info").text(snapshot.val()["player2"].name);
-            $(".choice2").text("Selected: " + snapshot.val()["player2"].choice);
+            $(".opponent2-name").text(snapshot.val()["player2"].name);
+            $(".choice-player2").text("Selected: " + snapshot.val()["player2"].choice);
 
+            $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
+            $(".losses2").text("Wins: " + snapshot.val()["player2"].losses);
+            $(".ties2").text("Wins: " + snapshot.val()["player2"].ties);
 
-
-
-
-
-            //----info for player2.html-----
+            //----info for index.html-----
             $(".game-container-player2").show();
-            $(".player2-title-info").text(snapshot.val()["player2"].name);
-            $(".choice2").text("Selected: " + snapshot.val()["player2"].choice)
+            $(".player2-name-top").text(snapshot.val()["player2"].name);
+            $(".player2-choice").text("Selected: " + snapshot.val()["player2"].choice)
             $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
             $(".losses2").text("Losses: " + snapshot.val()["player2"].losses);
             $(".ties2").text("Ties: " + snapshot.val()["player2"].ties);
 
-            $(".player1-title-info").text(snapshot.val()["player1"].name);
-            $(".choice").text("Selected: " + snapshot.val()["player1"].choice);
+
+            $(".opponent1-name").text(snapshot.val()["player1"].name);
+            $(".choice-player1").text("Selected: " + snapshot.val()["player1"].choice);
+
+            $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
+            $(".losses").text("Wins: " + snapshot.val()["player1"].losses);
+            $(".ties").text("Wins: " + snapshot.val()["player1"].ties);
 
          //------------------------------------------------------------------
             // $(".player1-title-info").text(snapshot.val()["player1"].name);
@@ -129,7 +133,7 @@ $(document).ready(function () {
             // console.log("player1 exists only");
             $(".player1-title-info").text(snapshot.val()["player1"].name);
             $(".player2-area").show();
-            $(".player1-title").text("Player 1: " + snapshot.val()["player1"].name)
+            $(".player1-title").text("Hurry, " + snapshot.val()["player1"].name + " is waiting on you.")
             $(".input-area1").hide();
 
             $(".name").text("Name: " + snapshot.val()["player1"].name);

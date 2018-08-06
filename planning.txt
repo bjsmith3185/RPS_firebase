@@ -1,4 +1,44 @@
 
+transfer.html
+
+player1 at teh top
+player2 at the bottom
+
+.player-one-game,css entire gray box with border
+    - .player1-name-top, js
+
+.game-selection-area, show() this while they pick
+
+    - .player1-selection, show() this after they pick in the same place
+
+    - .player1-choice, js  shows the selection
+
+.player-one-stats, shows the results at the bottom
+
+    .wins, .losses,.ties for player1
+
+    ----------------
+
+    opponent side
+
+.opponent-area,  same for both  grey background
+.opponent-title, box for opponents name 
+.opponent-name, name of player2 smaller,
+
+.opponent-selection, area on left to show player1s selection
+    -.choice-player2, link for their selection, may need to use show() after they select.
+
+    .opponent-stats, area to show opponents stats 
+        .wins1, .losses2, .ties2,  show in block
+
+
+
+
+
+
+
+
+==========================================================
 right now using index.html to open game
     - transfer.html is the player1's window in the game 
     - index.html is the player2's window in the game 

@@ -1,0 +1,160 @@
+
+
+body {
+    background: black;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.welcome-title {
+    font-size: 40px;
+    font-weight: bolder;
+    color: rgb(76, 240, 76);
+    padding: 10px;
+}
+
+.welcome-title-sub {
+    font-size: 10px;
+    color: gray;
+}
+
+.name-instructions {
+    font-size: 28px;
+    padding: 5px;
+}
+
+.player1-area {
+    margin-top: 15px;
+    padding: 15px;
+}
+
+#user-name1 {
+    background: white;
+    color: black;
+    font-weight: bolder;
+    
+}
+
+#submit-name1 {
+    background: rgb(76, 240, 76);
+    color: black;
+}
+
+/* player 1 waiting screen  */
+
+.player-one-game {
+    margin-top: 20px;
+    font-size: 40px;
+    color: rgb(76, 240, 76);
+    
+    
+}
+
+.player1-title-info {
+    font-size: 40px;
+    color: rgb(76, 240, 76);
+}
+
+.game-title-sub {
+    margin-top: 25px;
+}
+
+.player1-title {
+    color: rgb(76, 240, 76);
+    font-size: 30px;
+}
+
+
+.player2-area {
+    margin-top: 20px;
+}
+
+#user-name2 {
+    color: black;
+}
+
+#submit-name2 {
+    background: rgb(76, 240, 76);
+    color: black;
+}
+
+/* game screen  */
+
+   
+
+.players-status {
+    font-size: 18px;
+    color: white ;
+}
+
+
+.game-area {
+    margin-top: 25px;
+    background: darkgrey;
+    border: 3px solid white;
+
+}
+
+.game-title {
+    background: black;
+    border-bottom: 3px solid white;
+    
+}
+
+.player-title-info {
+    font-size: 30px;
+    color: rgb(76, 240, 76);
+}
+
+.select,
+.select2 {
+    font-size: 44px;
+    color: black;
+    padding: 5px;
+}
+
+.choice {
+    font-size: 44px;
+    color: gold;
+}
+
+.p-wins,
+.p-losses,
+.p-ties {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.opponent-area {
+    margin-top: 30px;
+    border: 3px solid white;
+    background: darkgrey;
+}
+
+.opponent-title {
+    background: black;
+    border-bottom: 3px solid white;
+}
+
+.opponent-title-info {
+    color: rgb(76, 240, 76);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.opponent-selection {
+    color: red;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.opponents-stats {
+    font-size: 18px;
+    color: black;
+
+}
+
+

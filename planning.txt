@@ -1,4 +1,86 @@
 
+tri state 
+
+1 player1 selects
+    function player1()
+
+2 player2 selects 
+    function player2()
+
+3 check answer
+    function compareAnswers()
+
+
+
+
+
+
+
+
+========================================
+
+logic
+
+listener,
+if( both players exist) 
+
+    populate the game screen initally
+
+    if (both players are readyToCheck)
+        --
+
+        else if (player 1 turn) 
+            --
+
+        else if (player 2 turn)
+            --
+
+
+else if (player 1 exists only)
+--
+
+else if (neither player exists) 
+-- 
+
+
+
+///////////////////////////////////////////////////
+
+to hide the selections after user selects,
+
+ player-selection  .hide()
+
+player1 selects
+    - turn: false,
+    - readyToCheck: true,
+
+    if(turn:false and readyToCheck:true) {
+        (transfer.html) game-selection-area  .hide()
+        (transfer.html) player-selection  .show()
+
+        * dont show selected on index.html at this point,
+        (index.html) 
+        (index.html) (transfer.html) opponent-selection-area .hide()
+    }
+
+player2 selects
+    if (player1 readyToCheck: true &&  player2 readyToCheck: true) {
+        (index.html) game-selection-area  .hide()
+        (index.html) player-selection  .show()
+
+        (index.html)(transfer.html) opponent-selection-area .show()
+
+
+    }
+
+
+
+
+
+
+
+============ css =================
+
 transfer.html
 
 player1 at teh top

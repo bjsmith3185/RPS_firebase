@@ -304,9 +304,7 @@ $(document).ready(function () {
                 console.log("inside the first compare");
                 database.ref("player2").update({
                     "losses": losses2,
-                }).ref("player1").update({
-                    "wins": wins1,
-                });  
+                }); 
 
                 database.ref("player1").update({
                     "wins": wins1,

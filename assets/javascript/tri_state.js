@@ -50,18 +50,12 @@ $(document).ready(function () {
         } else if (snap.numChildren() === 2) {
             $(".players-status").text("Status: Both players are logged on.");
         }
-        // $("#connected-viewers").text(snap.numChildren());
-    });
+     });
 
-
-
-
-
-    
+     // game main listener------------------------------------------------
     
     database.ref().on("value", function(snapshot) {
-       
-  
+   
         if ((snapshot.child("player1").exists()) && (snapshot.child("player2").exists())) { 
             
             
@@ -105,17 +99,17 @@ $(document).ready(function () {
                 console.log("check answers");
                 $(".opponent-selection-area").show();  // this will show both player's selection to the other player,
 
-                wins1 = snapshot.val()["player1"].wins;
-                losses1 = snapshot.val()["player1"].losses;
-                ties1 = snapshot.val()["player1"].ties;
+                // wins1 = snapshot.val()["player1"].wins;
+                // losses1 = snapshot.val()["player1"].losses;
+                // ties1 = snapshot.val()["player1"].ties;
                 answer1 = snapshot.val()["player1"].choice;
                 $(".choice-player1").text(snapshot.val()["player1"].choice);
                 $(".player1-game-selection-area").hide();  // hides the choices
                 $(".player1-selection").show();  // shows the selected choice
 
-                wins2 = snapshot.val()["player2"].wins;
-                losses2 = snapshot.val()["player2"].losses;
-                ties2 = snapshot.val()["player2"].ties;
+                // wins2 = snapshot.val()["player2"].wins;
+                // losses2 = snapshot.val()["player2"].losses;
+                // ties2 = snapshot.val()["player2"].ties;
                 answer2 = snapshot.val()["player2"].choice;
                 $(".choice-player2").text(snapshot.val()["player2"].choice);
                 $(".player2-game-selection-area").hide();  // hides the choices
@@ -310,7 +304,9 @@ $(document).ready(function () {
                 console.log("inside the first compare");
                 database.ref("player2").update({
                     "losses": losses2,
-                }); 
+                }).ref("player1").update({
+                    "wins": wins1,
+                });  
 
                 database.ref("player1").update({
                     "wins": wins1,

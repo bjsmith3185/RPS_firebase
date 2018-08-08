@@ -6,12 +6,19 @@ $(document).ready(function () {
     $(".game-container-player2").hide();
     $(".only-one-player-left").hide();
 
-    // $(".player-selection").hide();  // shows what you selected
-    // $(".opponent-selection-area").hide();
-    // $(".game-selection-area").show();  // show your choices
     var answer1;
     var answer2;
+    var wins1 = 0;
+    var losses1 = 0;
+    var ties1 = 0;
+    var wins2 = 0;
+    var losses2 = 0;
+    var ties2 = 0;
 
+
+
+
+    
     var config = {
         apiKey: "AIzaSyCMq10KVdAHPKNC4jpdOMcmfPcRXbpoZMs",
         authDomain: "rps-firebase-40930.firebaseapp.com",
@@ -62,19 +69,24 @@ $(document).ready(function () {
             $(".game-container-player1").show();
             $(".game-container-player2").show();
             //  transfer.html
-            $(".player1-name-top").text(snapshot.val()["player1"].name);
+            $(".player1-name-top").text("Player 1: " + snapshot.val()["player1"].name);
             $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
             $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
             $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
-            $(".choice-player1").text("Selected: " + snapshot.val()["player1"].choice);
+            $(".choice-player1").text(snapshot.val()["player1"].choice);
             $(".opponent2-name").text(snapshot.val()["player2"].name);
+            $(".player1-selection").hide();  // hides the selected choice
+
+            $(".opponent-selection-area").hide();
             
             //  index.html
-            $(".player2-name-top").text(snapshot.val()["player2"].name);
+            $(".player2-name-top").text("Player 2: " + snapshot.val()["player2"].name);
             $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
             $(".losses2").text("Losses: " + snapshot.val()["player2"].losses);
             $(".ties2").text("Ties: " + snapshot.val()["player2"].ties);
-            $(".choice-player2").text("Selected: " + snapshot.val()["player2"].choice);
+            $(".choice-player2").text(snapshot.val()["player2"].choice);
+            $(".player2-selection").hide();  // hides the selected choice
+
             $(".opponent1-name").text(snapshot.val()["player1"].name);
 
 
@@ -84,122 +96,49 @@ $(document).ready(function () {
             
             } else if ((snapshot.val()["state"].turn) === "2") {  // this is player2 turn to select
                 console.log("player2 turn");
+                $(".choice-player1").text(snapshot.val()["player1"].choice);
+                $(".player1-game-selection-area").hide();  // hides the choices
+                $(".player1-selection").show();  // shows the selected choice
                 player2SelectRPS();
 
             } else if ((snapshot.val()["state"].turn) === "3") { // this is checkanswers 
                 console.log("check answers");
+                $(".opponent-selection-area").show();  // this will show both player's selection to the other player,
+
+                wins1 = snapshot.val()["player1"].wins;
+                losses1 = snapshot.val()["player1"].losses;
+                ties1 = snapshot.val()["player1"].ties;
                 answer1 = snapshot.val()["player1"].choice;
+                $(".choice-player1").text(snapshot.val()["player1"].choice);
+                $(".player1-game-selection-area").hide();  // hides the choices
+                $(".player1-selection").show();  // shows the selected choice
+
+                wins2 = snapshot.val()["player2"].wins;
+                losses2 = snapshot.val()["player2"].losses;
+                ties2 = snapshot.val()["player2"].ties;
                 answer2 = snapshot.val()["player2"].choice;
-                compareAnswers();
+                $(".choice-player2").text(snapshot.val()["player2"].choice);
+                $(".player2-game-selection-area").hide();  // hides the choices
+                $(".player2-selection").show();  // shows the selected choice
+                
+               
+                setTimeout(compareAnswers, 5000);
 
             } else if ((snapshot.val()["state"].turn) === "0") { // this is a screen reset
                 console.log("reset screens");
-                readyToPlay();
+
+                $(".player1-game-selection-area").show();  // shows the choices
+                $(".player2-game-selection-area").show();  // shows the choices
+                $(".player1-selection").hide();  // hides the selected choice
+                $(".player2-selection").hide();  // hides the selected choice
+                $(".opponent-selection-area").hide();  // this will hide both player's selection to the other player,
+               
+                setTimeout(readyToPlay, 1000);
 
             };
             
 
 
-            // ready to play game
-//             if ((snapshot.val()["player1"].readyToCheck)  && (snapshot.val()["player2"].readyToCheck)) { // if both players have made a seleciton
-//                 console.log((snapshot.val()["player1"].readyToCheck) + " and " +   (snapshot.val()["player2"].readyToCheck) );
-//                  //================ player1 screen  transfer.html  ===========
-
-//                 $(".player1-selection").show() // this will show the player1 selection initally,
-//                 $(".player2-selection").show(); // this will show the player2 selection intially,
-//                 $(".opponent-selection-area").show();  // this will show both player's selection to the other player,
-
-//                 //=========== player2 screen  index.html ===================
-
-                
-//                 // $(".player2-game-selection-area").hide();
-//                 // $(".player2-selection").show();
-//   //-00000000000000000000000000000000000000000000000000000000000000000000000000000000000             
-//                  setTimeout(compareAnswers, 1000);
-              
-//               } else if (snapshot.val()["player1"].turn) { // player1 can select rps
-//                 $(".player1-game-selection-area").show();  // shows selections for player1 to choose from
-//                 $(".opponent-selection-area").hide();  // this will hide both player's selection to the other player,
-
-
-//                   setTimeout(player1SelectRPS, 1000);
-
-
-                 
-    
-//               } else if (snapshot.val()["player2"].turn) {
-//                 $(".player2-game-selection-area").show();  // shows selections for player2 to choose from
-//                 $(".opponent-selection-area").hide();  // this will hide both player's selection to the other player,
-
-
-//                   setTimeout(player2SelectRPS, 1000);
-   
-//               };
-
-
-
-           
-           
-            
-            // //================ player1 screen  transfer.html  ===========
-            // $(".player1-name-top").text(snapshot.val()["player1"].name);
-            
-            // $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
-            // $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
-            // $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
-
-            // $(".player1-selection").hide() // this will hide the player1 selection initally,
-            // $(".player1-choice").text("Selected: " + snapshot.val()["player1"].choice);
-
-            // $(".opponent2-name").text(snapshot.val()["player2"].name);
-
-            // $(".opponent-selection-area").hide();  // this will hide the player2's selection initally,
-            // $(".choice-player2").text("Selected: " + snapshot.val()["player2"].choice);
-
-            // // $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
-            // // $(".losses2").text("Wins: " + snapshot.val()["player2"].losses);
-            // // $(".ties2").text("Wins: " + snapshot.val()["player2"].ties);
-
-            // //=========== player2 screen  index.html ===================
-
-            // $(".player2-name-top").text(snapshot.val()["player2"].name);
-           
-            // $(".wins2").text("Wins: " + snapshot.val()["player2"].wins);
-            // $(".losses2").text("Losses: " + snapshot.val()["player2"].losses);
-            // $(".ties2").text("Ties: " + snapshot.val()["player2"].ties);
-
-            // $(".player2-selection").hide();  // added this
-            // $(".player2-choice").text("Selected: " + snapshot.val()["player2"].choice);
-
-            // $(".opponent1-name").text(snapshot.val()["player1"].name);
-
-            // $(".choice-player1").text("Selected: " + snapshot.val()["player1"].choice);
-
-            // // $(".wins").text("Wins: " + snapshot.val()["player1"].wins);
-            // // $(".losses").text("Losses: " + snapshot.val()["player1"].losses);
-            // // $(".ties").text("Ties: " + snapshot.val()["player1"].ties);
-
-           
-
-        
-                     
-//  dont need this below-----------------------------------------
-            // if ((snapshot.val()["player1"].readyToCheck)  && (snapshot.val()["player2"].readyToCheck)) { // if both players have made a seleciton
-            //   console.log((snapshot.val()["player1"].readyToCheck) + " and " +   (snapshot.val()["player2"].readyToCheck) );
-              
-             
-            //    setTimeout(compareAnswers, 4000);
-            
-            // } else if (snapshot.val()["player1"].turn) { // if true, let player1 select rps
-          
-            //     setTimeout(player1SelectRPS, 1000);
-               
-  
-            // } else if (snapshot.val()["player2"].turn) {
-
-            //     setTimeout(player2SelectRPS, 1000);
- 
-            // };
 //  this is the welcome screen below----------------------
 
         } else if ((snapshot.child("player1").exists()) && (!snapshot.child("player2").exists())) {   // should = true
@@ -252,16 +191,12 @@ $(document).ready(function () {
                     "ties": 0,
                     "logged_on": true,
                     "choice": "",
-                    "turn" : true,
-                    "readyToCheck": false,
                 }); 
 
-                database.ref("state").update({
-                    turn: 1,
-                });
+                // database.ref("state").update({
+                //     turn: 1,
+                // });
                 updateState("1");
-
-                
          
             //  console.log("player1 is ready");
                 $(".player-one-welcome").hide();
@@ -290,17 +225,8 @@ $(document).ready(function () {
                     "ties": 0,
                     "logged_on": true,
                     "choice": "",
-                    "turn" : false,
-                    "readyToCheck": false,
-                });
 
-                // database.ref("state").update({
-                //     turn: 1,
-                // })
-                // updateState();
-                // console.log("player2 is ready");
-                
-                    // window.location='player2.html';
+                });
                   
             });
         };
@@ -309,20 +235,15 @@ $(document).ready(function () {
         function player1SelectRPS() {
                 console.log("player1's turn to select");
                 $(document.body).on("click", ".select", function () {
-                    $(".player1-game-selection-area").hide();  // hides the choices
-                    $(".player1-selection").show();  // shows the selected choice
+                    // $(".player1-game-selection-area").hide();  // hides the choices
+                    // $(".player1-selection").show();  // shows the selected choice
 
                     var playerChoice = $(this).attr("value");
 
                     database.ref("player1").update({
                         "choice": playerChoice,
-                        // "turn": false,
-                        // "readyToCheck": true,
                     });
 
-                    // database.ref("state").update({
-                    //    turn: 2,
-                    // });
                    updateState("2");
 
                 });
@@ -332,10 +253,10 @@ $(document).ready(function () {
         function player2SelectRPS() {
                 console.log("player2's turn to select");
                 $(document.body).on("click", ".select2", function () {
-                    $(".player2-game-selection-area").hide(); // hides the choices
-                    $(".player2-selection").show(); // shows player2 selected choice
-                    $(".player1-game-selection-area").hide();  // hides the choices
-                    $(".player1-selection").show();  // shows player1 selected choice
+                    // $(".player2-game-selection-area").hide(); // hides the choices
+                    // $(".player2-selection").show(); // shows player2 selected choice
+                    // $(".player1-game-selection-area").hide();  // hides the choices
+                    // $(".player1-selection").show();  // shows player1 selected choice
 
                     var playerChoice = $(this).attr("value");
 
@@ -354,21 +275,20 @@ $(document).ready(function () {
     
     
         function compareAnswers() {
-            $(".player2-game-selection-area").hide(); // hides the choices
-            $(".player2-selection").show(); // shows player2 selected choice
-            $(".player1-game-selection-area").hide();  // hides the choices
-            $(".player1-selection").show();  // shows player1 selected choice
-            $(".opponent-selection-area").show();  // this will show both player's selection to the other player,
+            // $(".player2-game-selection-area").hide(); // hides the choices
+            // $(".player2-selection").show(); // shows player2 selected choice
+            // $(".player1-game-selection-area").hide();  // hides the choices
+            // $(".player1-selection").show();  // shows player1 selected choice
+            // $(".opponent-selection-area").show();  // this will show both player's selection to the other player,
 
             // $(".opponent-selection").show();  // added
             // var answer1;
             // var answer2;
-            var wins1 = 0;
-            var losses1 = 0;
-            var ties1 = 0;
-            var wins2 = 0;
-            var losses2 = 0;
-            var ties2 = 0;
+           
+
+            console.log("below is the stats inside compareAnsers");
+            console.log("wins1: " + wins1 + " losses1: " + losses1 + " ties1: " + ties1);
+            console.log("wins2: " + wins2 + " losses2: " + losses2 + " ties2: " + ties2);
 
             // database.ref().once("value", function(snapshot) {
             //     answer1 = snapshot.val()["player1"].choice;
@@ -382,179 +302,109 @@ $(document).ready(function () {
             // });
 
                      
-            if (answer1 === "r" && answer2 === "s") {
+            if (answer1 === "rock" && answer2 === "sissor") {
               
                 wins1++;
                 losses2++;
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
-
+               
                 console.log("inside the first compare");
                 database.ref("player2").update({
                     "losses": losses2,
-                    // "turn": false,
-                    // "choice": "",
-                    // "readyToCheck": false,
                 }); 
 
                 database.ref("player1").update({
                     "wins": wins1,
-                    // "turn": true,
-                    // "choice": "",
-                    // "readyToCheck": false,
                 }); 
-               
-                
 
-            } else if (answer1 === "r" && answer2 === "p") {
+
+            } else if (answer1 === "rock" && answer2 === "paper") {
                 console.log("inside the second compare");
                 losses1++;
                 wins2++;
                 database.ref("player1").update({
                     "losses": losses1,
-                    "turn": true,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
           
                 database.ref("player2").update({
                     "wins": wins2,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
-    
-            } else if (answer1 === "s" && answer2 === "p") {
+     
+            } else if (answer1 === "sissor" && answer2 === "paper") {
                 wins1++;
                 losses2++;
                 database.ref("player1").update({
                     "wins": wins1,
-                    "turn": true,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
                 
                 database.ref("player2").update({
                     "losses": losses2,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
     
-            } else if (answer1 === "s" && answer2 === "r") {
+            } else if (answer1 === "sissor" && answer2 === "rock") {
                 losses1++;
                 wins2++;
                 database.ref("player1").update({
                     "losses": losses1,
-                    "turn": true,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
               
                 database.ref("player2").update({
                     "wins": wins2,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
     
-            } else if (answer1 === "p" && answer2 === "r") {
+            } else if (answer1 === "paper" && answer2 === "rock") {
                 wins1++;
                 losses2++;
                 database.ref("player1").update({
                     "wins": wins1,
-                    "turn": true,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
          
                 database.ref("player2").update({
                     "losses": losses2,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
-    
-            } else if (answer1 === "p" && answer2 === "r") {
+
+            } else if (answer1 === "paper" && answer2 === "rock") {
                 losses1++;
                 wins2++;
                 database.ref("player1").update({
                     "losses": losses1,
-                    "turn": true,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
               
                 database.ref("player2").update({
                     "wins": wins2,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
     
             } else if (answer1 === answer2) {
                 ties1++;
                 ties2++;
                 database.ref("player1").update({
                     "ties": ties1,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
               
                 database.ref("player2").update({
                     "ties": ties2,
-                    "turn": false,
-                    "choice": "",
-                    "readyToCheck": false,
                 }); 
-                // database.ref("state").update({
-                //     turn: 0,
-                //  });
             };
 
             updateState("0");
-
         };
+
 
         function updateState(x) {
             console.log("updating state");
-           
             database.ref("state").update({
                 turn: x,
              });
-
         };
 
 
         function readyToPlay() {
             console.log("inside readytoplay()")
-
-
             database.ref("player1").update({
                 "choice": "",
             }); 
-
             database.ref("player2").update({
                 "choice": "",
             }); 
-
             updateState("1");
         };
 

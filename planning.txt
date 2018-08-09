@@ -1,4 +1,70 @@
 
+
+
+both users active
+
+player1 selects
+    - show selection
+    - hide choices
+
+player2 selects
+    - show selection
+    - hide choices
+    - show opponents choice 
+    (settimeout for checkanswers())
+
+compare answer screen
+    - show score
+    - show selections
+
+reset screens for player1 select 
+
+    = hide opponent choices
+    - hide player choice
+    - show choices
+
+
+
+
+
++++++
+
+player1 * turn: true on initial set()
+    - turn: true 
+        - onclick for selection, turn: false
+        - ref(player1) update()
+            -choice: selected
+            -turn: false
+
+player2 * readyToCheck: false on initial set()
+    if player1 (turn:false) {
+        onclick player2 select
+            - ref(player2) update()
+                -choice: selected
+                -readyToCheck: true
+    }
+
+
+    listener
+        - if player1 turn: true.....player1 selects
+        - if player1 turn: false.....player2 selects
+        -if player2 readyToCheck: true...... run compareAnswers()
+
+        inside the compareAnswers()
+            - player1s
+                - wins: wins
+                - turn: true;
+                - choice: "",
+
+            - player2s
+                - losses: losses,
+                - readyToCheck: false,
+                - choice: "", 
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 tri state 
 
 1 player1 selects

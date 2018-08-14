@@ -22,15 +22,25 @@ $(document).ready(function () {
     firebase.initializeApp(config);
     var database = firebase.database();
 
+    // var databaseRemovePlayer1 = database.ref("player1");
+
 
 //-------player watcher---------
 var connectionsRef = database.ref("/connections");
 var connectedRef = database.ref(".info/connected");
 
+var user1 = database.ref("player1");
+var user2 = database.ref("player2");
+
+// var databaseRemove1 = database.ref("player1");
+// var databaseRemove2 = database.ref("player2");
+
 connectedRef.on("value", function (snap) {
     if (snap.val()) {
         var con = connectionsRef.push(true);
         con.onDisconnect().remove();
+        // user1.onDisconnect().remove();
+        // user2.onDisconnect().remove();
     };
 });
 
@@ -39,18 +49,29 @@ connectionsRef.on("value", function (snap) {
 
     if (snap.numChildren() === 1) {
         $(".players-status").text("Only one player is active.").addClass("one-player");
+
+      
     } else if (snap.numChildren() === 2) {
         $(".players-status").text("Status: Both players are logged on.");
     }
  });
+
+//  databaseRemovePlayer1.onDisconnect().remove();
+//  databaseRemovePlayer2.onDisconnect().remove();
+
 
     
     var answer1;
     var answer2;
     
     database.ref().on("value", function(snapshot) {
+
+        
   
         if ((snapshot.child("player1").exists()) && (snapshot.child("player2").exists())) {
+
+            // snapshot.val().child("player1").onDisconnect().remove();
+            // snapshot.val().child("player2").onDisconnect().remove();
 
             $(".welcome-container").hide();
             $(".game-container-player1").show();

@@ -161,3 +161,16 @@ body {
     background: red;
     
 } */
+
+
+/* end of game screen  */
+
+.end-container {
+    padding: 20px;
+
+}
+
+.end-of-game {
+    font-size: 30px;
+    margin-top: 40px;
+}
